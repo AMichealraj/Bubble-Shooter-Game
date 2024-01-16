@@ -1,0 +1,46 @@
+E:\coding\GitHub\Bubble-VB\Bubble-VB\Bubble-VB\bin\Debug\Bubble-VB.exe.config
+E:\coding\GitHub\Bubble-VB\Bubble-VB\Bubble-VB\bin\Debug\Bubble-VB.exe
+E:\coding\GitHub\Bubble-VB\Bubble-VB\Bubble-VB\bin\Debug\Bubble-VB.pdb
+E:\coding\GitHub\Bubble-VB\Bubble-VB\Bubble-VB\bin\Debug\Bubble-VB.xml
+E:\coding\GitHub\Bubble-VB\Bubble-VB\Bubble-VB\obj\Debug\Bubble_VB.Form1.resources
+E:\coding\GitHub\Bubble-VB\Bubble-VB\Bubble-VB\obj\Debug\Bubble_VB.Resources.resources
+E:\coding\GitHub\Bubble-VB\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.vbproj.GenerateResource.Cache
+E:\coding\GitHub\Bubble-VB\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.exe
+E:\coding\GitHub\Bubble-VB\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.xml
+E:\coding\GitHub\Bubble-VB\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.pdb
+C:\Users\kims-1\Desktop\Bubbleshooter Game\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB\Bubble-VB\bin\Debug\Bubble-VB.exe.config
+C:\Users\kims-1\Desktop\Bubbleshooter Game\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB\Bubble-VB\bin\Debug\Bubble-VB.exe
+C:\Users\kims-1\Desktop\Bubbleshooter Game\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB\Bubble-VB\bin\Debug\Bubble-VB.pdb
+C:\Users\kims-1\Desktop\Bubbleshooter Game\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB\Bubble-VB\bin\Debug\Bubble-VB.xml
+C:\Users\kims-1\Desktop\Bubbleshooter Game\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.vbproj.AssemblyReference.cache
+C:\Users\kims-1\Desktop\Bubbleshooter Game\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB\Bubble-VB\obj\Debug\Bubble_VB.Form1.resources
+C:\Users\kims-1\Desktop\Bubbleshooter Game\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB\Bubble-VB\obj\Debug\Bubble_VB.Resources.resources
+C:\Users\kims-1\Desktop\Bubbleshooter Game\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.vbproj.GenerateResource.cache
+C:\Users\kims-1\Desktop\Bubbleshooter Game\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.vbproj.CoreCompileInputs.cache
+C:\Users\kims-1\Desktop\Bubbleshooter Game\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.exe
+C:\Users\kims-1\Desktop\Bubbleshooter Game\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.xml
+C:\Users\kims-1\Desktop\Bubbleshooter Game\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.pdb
+F:\PROJ\Bubbleshooter Game\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB\Bubble-VB\bin\Debug\Bubble-VB.exe.config
+F:\PROJ\Bubbleshooter Game\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB\Bubble-VB\bin\Debug\Bubble-VB.exe
+F:\PROJ\Bubbleshooter Game\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB\Bubble-VB\bin\Debug\Bubble-VB.pdb
+F:\PROJ\Bubbleshooter Game\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB\Bubble-VB\bin\Debug\Bubble-VB.xml
+F:\PROJ\Bubbleshooter Game\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.vbproj.AssemblyReference.cache
+F:\PROJ\Bubbleshooter Game\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB\Bubble-VB\obj\Debug\Bubble_VB.Form1.resources
+F:\PROJ\Bubbleshooter Game\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB\Bubble-VB\obj\Debug\Bubble_VB.Resources.resources
+F:\PROJ\Bubbleshooter Game\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.vbproj.GenerateResource.cache
+F:\PROJ\Bubbleshooter Game\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.vbproj.CoreCompileInputs.cache
+F:\PROJ\Bubbleshooter Game\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.exe
+F:\PROJ\Bubbleshooter Game\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.xml
+F:\PROJ\Bubbleshooter Game\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB-1.0\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.pdb
+C:\Users\kims-1\Desktop\Bubble-VB\Bubble-VB\bin\Debug\Bubble-VB.exe.config
+C:\Users\kims-1\Desktop\Bubble-VB\Bubble-VB\bin\Debug\Bubble-VB.exe
+C:\Users\kims-1\Desktop\Bubble-VB\Bubble-VB\bin\Debug\Bubble-VB.pdb
+C:\Users\kims-1\Desktop\Bubble-VB\Bubble-VB\bin\Debug\Bubble-VB.xml
+C:\Users\kims-1\Desktop\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.vbproj.AssemblyReference.cache
+C:\Users\kims-1\Desktop\Bubble-VB\Bubble-VB\obj\Debug\Bubble_VB.Form1.resources
+C:\Users\kims-1\Desktop\Bubble-VB\Bubble-VB\obj\Debug\Bubble_VB.Resources.resources
+C:\Users\kims-1\Desktop\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.vbproj.GenerateResource.cache
+C:\Users\kims-1\Desktop\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.vbproj.CoreCompileInputs.cache
+C:\Users\kims-1\Desktop\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.exe
+C:\Users\kims-1\Desktop\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.xml
+C:\Users\kims-1\Desktop\Bubble-VB\Bubble-VB\obj\Debug\Bubble-VB.pdb

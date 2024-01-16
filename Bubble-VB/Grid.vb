@@ -1,0 +1,457 @@
+﻿Public Class Grid
+
+    Public width As Integer
+    Public height As Integer
+
+    Public won As Boolean = False
+
+    Public minPopSize As Integer = 3
+
+    Public bounds As Size
+
+    Public score As Integer
+
+    Public updateList As New List(Of Cell)
+    Private rbubbles As Array
+    Public radius As Integer
+
+    Public lost As Boolean = False
+
+    Public Property bubbles As Array
+        Get
+            Return rbubbles
+        End Get
+        Set(value As Array)
+            calculateExposed()
+        End Set
+    End Property
+
+    Public exposed As New List(Of Cell)
+    Public Property CurrentLevel As Level
+    Public Property LevelProgressBar As ProgressBar
+
+    Public Property CurrentLevelNumber As Integer = 1
+
+    ' Flag to track whether the level completion message has been shown
+    Dim levelCompletedShown As Boolean = False
+
+    ' Flag to track whether any level completion message has been shown
+    Dim anyLevelCompletedShown As Boolean = False
+    Public Sub LoadLevel(level As Level)
+        ' Implement logic to load the level-specific configurations
+        ' Adjust bubble speed, density, and patterns based on the level
+        CurrentLevel = level
+        ' Example: Set bubble speed based on the level
+        Dim bubbleSpeed As Integer = level.BubbleSpeed
+        ' ...
+
+        ' Reset the game state or any other necessary setup for the new level
+        ' ...
+
+        ' Reset the score and update the progress bar
+        score = 0
+        UpdateProgressBar()
+
+        ' Reset the level completion flag when loading a new level
+        ResetLevelCompletion()
+    End Sub
+
+    Public Sub LoadNextLevel()
+        ' Implement logic to transition to the next level
+        ' Example: Load the next level configuration
+        Dim nextLevel As New Level(CurrentLevel.BubbleSpeed, CurrentLevel.TargetScore)
+        LoadLevel(nextLevel)
+
+        ' Reset the level completion flag
+        ResetLevelCompletion()
+
+        ' Check for level completion after loading the next level
+        IsLevelCompleted()
+
+        ' Call the renamed method
+        AddRows()
+    End Sub
+    Private Function LevelScoreRequirement(level As Integer) As Integer
+        Select Case level
+            Case 1
+                Return 100
+            Case 2
+                Return 200
+            Case 3
+                Return 300
+            Case Else
+                Return 0
+        End Select
+    End Function
+
+    ' Method to reset the level completion flag
+    Public Sub ResetLevelCompletion()
+        levelCompletedShown = False
+    End Sub
+
+    Public Function IsLevelCompleted() As Boolean
+        ' Check if a level is loaded
+        If CurrentLevel Is Nothing Then
+            Return False
+        End If
+
+        ' Implement criteria for completing a level (e.g., reaching a target score, clearing all bubbles)
+        ' Example: Check if the player has cleared all bubbles in the current level
+        If getUnoccupied().Count = 0 Then
+            ' Display the level completion message only if it hasn't been shown yet
+            If Not anyLevelCompletedShown Then
+                MsgBox("Level " & CurrentLevelNumber & " completed!")
+
+                ' Set the flag to indicate that any level completion message has been shown
+                anyLevelCompletedShown = True
+
+                ' Transition to the next level
+                CurrentLevelNumber += 1
+
+                ' Load the next level
+                Dim nextLevel As New Level(CurrentLevel.BubbleSpeed, CurrentLevel.TargetScore)
+                LoadLevel(nextLevel)
+
+                ' Call the renamed method
+                AddRows()
+
+                ' Reset the level completion flag for the next level
+                ResetLevelCompletion()
+
+                ' Return True as the level is completed
+                Return True
+            End If
+        End If
+
+        ' Add other level completion criteria as needed
+        ' ...
+
+        ' Return False if the level is not completed
+        Return False
+    End Function
+
+    Public Sub AddRows()
+        ' Increase the bubbles reaching the bottom for each level
+        If CurrentLevelNumber = 1 Then
+            ' For Level 1, add one row
+            AddRows(1)
+        ElseIf CurrentLevelNumber = 2 Then
+            ' For Level 2, add two rows
+            AddRows(2)
+            ' Add more cases for additional levels as needed
+        End If
+
+        ' Play the advance sound
+        VBGame.Assets.sounds("advance").play()
+
+        ' Update the game state
+        update()
+    End Sub
+
+    Private Sub AddRows(rowsToAdd As Integer)
+        For i As Integer = 0 To rowsToAdd - 1
+            For y As Integer = height - 2 To 0 Step -1
+                For x As Integer = 0 To width - 1
+                    rbubbles(x, y + 1).Bubble = rbubbles(x, y).Bubble
+                    If y = 0 Then
+                        rbubbles(x, y).Bubble = New Bubble(0, 0, 0, radius)
+                    Else
+                        rbubbles(x, y).Bubble = Nothing
+                    End If
+                Next
+            Next
+        Next
+    End Sub
+
+    Public Function IsGameOver() As Boolean
+        ' Implement game-over conditions (e.g., running out of moves, bubbles reaching a certain line)
+        ' For example, you can check if any bubbles have reached the bottom of the grid
+        If lost Then
+            ' Implement logic for game over
+            ' Example: Display game-over screen
+            Return True
+        End If
+
+        ' Add other game-over conditions as needed
+        ' ...
+
+        Return False
+    End Function
+
+    Public Sub UpdateProgressBar()
+        ' Implement logic to update the progress bar based on the game state
+        ' For example, you can calculate the progress as a percentage of completed bubbles compared to the total bubbles in the grid
+        Dim totalBubbles As Integer = width * height
+        Dim completedBubbles As Integer = totalBubbles - getUnoccupied().Count
+        LevelProgressBar.CurrentProgress = (completedBubbles * 100) \ totalBubbles
+
+        ' Ensure progress is within the valid range (0 to 100)
+        LevelProgressBar.CurrentProgress = Math.Max(0, Math.Min(LevelProgressBar.CurrentProgress, 100))
+    End Sub
+
+
+    Public Function getColorGroup(x As Integer, y As Integer, Optional ByRef group As List(Of Cell) = Nothing)
+        If IsNothing(group) Then
+            group = New List(Of Cell)
+            group.Add(rbubbles(x, y))
+        End If
+        For Each Cell As Cell In getNeighbors(x, y)
+            If Cell.Bubble.color = rbubbles(x, y).Bubble.color AndAlso Not group.Contains(Cell) Then
+                group.Add(Cell)
+                getColorGroup(Cell.ix, Cell.iy, group)
+            End If
+        Next
+        Return group
+    End Function
+
+    Public Function floodSelect(x As Integer, y As Integer, Optional group As List(Of Cell) = Nothing)
+        If IsNothing(group) Then
+            group = New List(Of Cell)
+            group.Add(rbubbles(x, y))
+        End If
+        For Each Cell As Cell In getNeighbors(x, y)
+            If Not group.Contains(Cell) Then
+                group.Add(Cell)
+                floodSelect(Cell.ix, Cell.iy, group)
+            End If
+        Next
+        Return group
+    End Function
+
+    Public Sub calculateExposed()
+        Dim maxNeighbors As Integer
+        exposed.Clear()
+        For x As Integer = 0 To width - 1
+            For y As Integer = 0 To height - 1
+                If rbubbles(x, y).hasBubble Then
+                    If rbubbles(x, y).ix = 0 AndAlso rbubbles(x, y).iy = 0 Then
+                        maxNeighbors = 2
+                    ElseIf rbubbles(x, y).ix = width - 1 AndAlso rbubbles(x, y).iy = 0 Then
+                        maxNeighbors = 3
+                    ElseIf rbubbles(x, y).ix = 0 Or rbubbles(x, y).ix = width - 1 Then
+                        If ((rbubbles(x, y).iy + 2) Mod 2) = 0 Then
+                            maxNeighbors = 3
+                        Else
+                            maxNeighbors = 5
+                        End If
+                        If rbubbles(x, y).ix = width - 1 Then
+                            If maxNeighbors = 5 Then
+                                maxNeighbors = 3
+                            Else
+                                maxNeighbors = 5
+                            End If
+                        End If
+                    ElseIf rbubbles(x, y).iy = 0 Then
+                        maxNeighbors = 4
+                    Else
+                        maxNeighbors = 6
+                    End If
+                    If getNeighbors(x, y).Count < maxNeighbors Then
+                        exposed.Add(rbubbles(x, y))
+                    End If
+                End If
+            Next
+        Next
+    End Sub
+
+    Public Function getNeighbors(x As Integer, y As Integer) As List(Of Cell)
+        Dim neighbors As New List(Of Cell)
+        Dim isNeighbor As Boolean
+        For ix As Integer = x - 1 To x + 1
+            For iy As Integer = y - 1 To y + 1
+                If ((iy + 2) Mod 2) = 0 Then
+                    isNeighbor = Not ((ix - x = -1 And iy - y <> 0) Or (ix = x And iy = y))
+                Else
+                    isNeighbor = Not ((ix - x = 1 And iy - y <> 0) Or (ix = x And iy = y))
+                End If
+                If isNeighbor Then
+                    If (ix >= 0 AndAlso ix < width AndAlso iy >= 0 AndAlso iy < height) AndAlso rbubbles(ix, iy).hasBubble Then
+                        neighbors.Add(rbubbles(ix, iy))
+                    End If
+                End If
+            Next
+        Next
+        Return neighbors
+    End Function
+
+    Public maxRows As Integer
+
+    Public Sub New(size As Size, radius As Integer, startHeight As Integer)
+        Me.radius = radius
+        bounds = New Size(size.Width * radius * 2 + radius, size.Height * radius * 2)
+        width = size.Width
+        height = size.Height
+        Dim tbubbles(width - 1, height - 1) As Cell
+        rbubbles = tbubbles
+        For x As Integer = 0 To width - 1
+            For y As Integer = 0 To height - 1
+                If y < startHeight Then
+                    rbubbles(x, y) = New Cell(New Bubble(0, 0, 0, radius), x * radius * 2, y * radius * 2, x, y, radius)
+                Else
+                    rbubbles(x, y) = New Cell(Nothing, x * radius * 2, y * radius * 2, x, y, radius)
+                End If
+            Next
+        Next
+    End Sub
+
+    Public Sub draw(display As Object)
+        For x As Integer = 0 To width - 1
+            For y As Integer = 0 To height - 1
+                If Not IsNothing(rbubbles(x, y).bubble) Then
+                    rbubbles(x, y).bubble.draw(display)
+                End If
+            Next
+        Next
+    End Sub
+
+    Public Function getUnoccupied() As List(Of Cell)
+        Dim unoccupied As New List(Of Cell)
+        For x As Integer = 0 To width - 1
+            For y As Integer = 0 To height - 1
+                If Not rbubbles(x, y).hasBubble Then
+                    unoccupied.Add(rbubbles(x, y))
+                End If
+            Next
+        Next
+        Return unoccupied
+    End Function
+
+    Public Function getIslands(Optional toCheck As List(Of Cell) = Nothing) As List(Of Cell)
+        If IsNothing(toCheck) Then
+            toCheck = exposed
+        End If
+        Dim checked As New List(Of Cell)
+        Dim selection As List(Of Cell)
+        Dim islands As New List(Of Cell)
+        Dim island As Boolean
+        For Each Cell As Cell In toCheck
+            If Not checked.Contains(Cell) Then
+                selection = floodSelect(Cell.ix, Cell.iy)
+                island = True
+                For Each sCell As Cell In selection
+                    If checked.Contains(sCell) Then
+                        island = False
+                        checked.AddRange(selection)
+                        Exit For
+                    End If
+                    checked.Add(sCell)
+                    If sCell.iy = 0 Then
+                        island = False
+                        Exit For
+                    End If
+                Next
+                If island Then
+                    islands.AddRange(selection)
+                End If
+            End If
+        Next
+        Return islands
+    End Function
+
+    Public Sub checkLose()
+        For Each Cell As Cell In exposed
+            If Cell.iy = height - 1 Then
+                lost = True
+            End If
+        Next
+    End Sub
+    Public Sub update()
+        calculateExposed()
+
+        ' Add debug messages
+        Console.WriteLine("Current Score: " & score)
+
+        ' Check if any level completion message hasn't been shown
+        If Not anyLevelCompletedShown Then
+            ' Check if the player has reached Level 1
+            If score >= 100 And CurrentLevelNumber = 1 Then
+                ' Check if any level is completed
+                If IsLevelCompleted() Then
+                    Console.WriteLine("Congratulations! You've completed Level 1")
+                    MessageBox.Show("Congratulations! You've completed Level 1")
+                End If
+
+                ' Set the flag to indicate that any level completion message has been shown
+                anyLevelCompletedShown = True
+                CurrentLevelNumber = 2 ' Move to Level 2
+            End If
+
+            ' Check if the player has reached Level 2
+            If score >= 150 And CurrentLevelNumber = 2 Then
+                ' Check if any level is completed
+                If IsLevelCompleted() Then
+                    Console.WriteLine("Congratulations! You've completed Level 2")
+                    MessageBox.Show("Congratulations! You've completed Level 2")
+                End If
+
+                ' Set the flag to indicate that any level completion message has been shown
+                anyLevelCompletedShown = True
+                CurrentLevelNumber = 3 ' Move to Level 3
+            End If
+
+            '' Check if the player has reached Level 3
+            'If score >= 200 And CurrentLevelNumber = 3 Then
+            '    ' Check if any level is completed
+            '    If IsLevelCompleted() Then
+            '        Console.WriteLine("Congratulations! You've completed Level 3")
+            '        MessageBox.Show("Congratulations! You've completed Level 3")
+            '    End If
+
+            '    ' Set the flag to indicate that any level completion message has been shown
+            '    anyLevelCompletedShown = True
+            'End If
+
+            Console.WriteLine("Current Level: " & CurrentLevelNumber)
+        End If
+
+        ' Debug message to check the flow of execution
+        Console.WriteLine("Update logic after Level conditions")
+
+        ' The rest of the update logic...
+        For Each Cell As Cell In getIslands()
+            exposed.Remove(Cell)
+            Cell.pop(Me)
+        Next
+        checkLose()
+    End Sub
+
+    Public Sub addRow()
+        For y As Integer = height - 2 To 0 Step -1
+            For x As Integer = 0 To width - 1
+                rbubbles(x, y + 1).Bubble = rbubbles(x, y).Bubble
+                If y = 0 Then
+                    rbubbles(x, y).Bubble = New Bubble(0, 0, 0, radius)
+                Else
+                    rbubbles(x, y).Bubble = Nothing
+                End If
+            Next
+        Next
+        update()
+        VBGame.Assets.sounds("advance").play()
+    End Sub
+
+    Public Sub snapBubble(bubble As Bubble, player As Player)
+        Dim unoccupied As List(Of Cell) = getUnoccupied()
+        Dim d As Integer
+        Dim lowestIndex As Integer = 0
+        Dim lowest As Integer = 999999999
+        For i As Integer = 0 To unoccupied.Count - 1
+            d = Math.Pow(bubble.x - unoccupied(i).X, 2) + Math.Pow(bubble.y - unoccupied(i).y, 2)
+            If d < lowest Then
+                lowestIndex = i
+                lowest = d
+            End If
+        Next
+        unoccupied(lowestIndex).Bubble = bubble
+        Dim lcell As Cell = unoccupied(lowestIndex)
+        Dim group As List(Of Cell) = getColorGroup(lcell.ix, lcell.iy)
+        If group.Count >= minPopSize Then
+            player.addToQueue()
+            For Each cell As Cell In group
+                cell.pop(Me)
+            Next
+        End If
+        calculateExposed()
+    End Sub
+
+End Class

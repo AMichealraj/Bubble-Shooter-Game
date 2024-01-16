@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <radius>15</radius>
+  <gamesWon>1050</gamesWon>
+  <leaderboard>
+    <Score>
+      <name>techi</name>
+      <score>420</score>
+      <won>false</won>
+    </Score>
+    <Score>
+      <name>trial</name>
+      <score>370</score>
+      <won>false</won>
+    </Score>
+    <Score>
+      <name>saro</name>
+      <score>200</score>
+      <won>false</won>
+    </Score>
+    <Score>
+      <name>ggsgas</name>
+      <score>60</score>
+      <won>false</won>
+    </Score>
+    <Score>
+      <name>asasa</name>
+      <score>0</score>
+      <won>false</won>
+    </Score>
+    <Score xsi:nil="true" />
+    <Score xsi:nil="true" />
+    <Score xsi:nil="true" />
+    <Score xsi:nil="true" />
+    <Score xsi:nil="true" />
+  </leaderboard>
+</Settings>
